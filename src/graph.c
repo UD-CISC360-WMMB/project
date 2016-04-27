@@ -1,36 +1,27 @@
 #include <stdlib.h>
+#include "./graph.h"
 
-typedef struct al_node {
-  int degree;
-  int degree_in;
-  int color;
-  struct al_node *adj[];
-} al_node;
-
-
-typedef struct al_graph {
-  int size;
-  al_node *v[];
-} al_graph;
-
-
-
-typedef struct {
-  int color;
-  int data;
-} am_node;
-
-typedef struct am_graph {
-  int size;
-  am_node **rows;
+al_node* new_al_node() {
+  al_node* nd = (al_node*) malloc(sizeof(al_node));
+  return nd;
 }
 
-typedef struct al_subgraph {
-  int size_in;
-  int boundary;
-  al_node *v[];
-} al_subgraph;
+void set_num_neighbors(al_node* nd, int size){
+  al_node** nds = (al_node**) malloc(size * sizeof(al_node*));
+  nd->degree = size;
+  nd->degree_in = 0;
+  nd->v = nds;
+}
 
 
+void add_connection(al_node* nd1, int pos, al_node* nd2){
+  nd1->v[pos] = nd2;
+}
+
+al_graph* new_graph(al_node** nds, int size){
+  al_graph* g = (al_graph*) malloc(sizeof(al_graph));
+  g->size = size;
+  g->v = nds;
+}
 
 
