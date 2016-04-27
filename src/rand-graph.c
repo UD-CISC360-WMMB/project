@@ -34,9 +34,11 @@ graph* rand_graph(int size)  {
 		set_num_neighbors(nodes[i], neighbors);
 	}
 	for (int i = 0 ; i < size ; i++) {
+		int currNeighbor = 0;
 		for (int j = 0 ; j < size ; j++) {
 			if (randmat[i][j] == 1) {
-				add_connection(nodes[i], i, nodes[j]);
+				add_connection(nodes[i], currNeighbor, nodes[j]);
+				currNeighbor++;
 			}
 		}
 	}

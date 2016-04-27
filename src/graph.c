@@ -34,9 +34,9 @@ void print_graph(graph* g){
     node* nd = nds[i];
     node** v = nd->v;
     int degree = nd->degree;
-    printf("%d: ", nd->tag);/*
-    for(int j=0; j < degree; j++)
-    printf("%d, ", v[j]->tag);*/
+    printf("%d: ", nd->tag);
+    for(int j=0; j < degree; j++){
+    printf("%d, ", v[j]->tag);}
     printf("\n");
   }
 }
