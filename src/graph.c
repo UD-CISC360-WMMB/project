@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "./graph.h"
 
-al_node* new_al_node() {
+al_node* new_node() {
   al_node* nd = (al_node*) malloc(sizeof(al_node));
   return nd;
 }

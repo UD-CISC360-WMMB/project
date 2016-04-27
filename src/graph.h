@@ -28,7 +28,9 @@ node*   new_node();
 void    set_num_neighbors(node* nd, int i);
 void    add_connection(node* nd1, int pos, node* nd2);
 graph*  new_graph(node** nds,int size);
-void    print_graph(graph* g);
+graph*  rand_graph(int size);
 
+void    tag_graph(graph* g);
+void    print_graph(graph* g);
 
 #endif

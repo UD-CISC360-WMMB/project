@@ -2,6 +2,8 @@
 #include "../src/graph.h"
 
 int main(){
-  printf("Hello World!\n");
+  graph* g = rand_graph(8);
+  tag_graph(g);
+  print_graph(g);
   return 0;
 }

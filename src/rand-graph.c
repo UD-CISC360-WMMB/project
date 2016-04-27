@@ -1,7 +1,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <graph.h>
+#include "./graph.h"
 
 int** randMat( int size ) {
 	int* values		= calloc(size*size, sizeof(int));
@@ -20,7 +20,7 @@ int** randMat( int size ) {
 	return adjMat;
 }
 
-graph* genGraph(int size) {
+graph* rand_graph(int size)  {
 	int ** randmat = randMat(size);
 	node** nodes = malloc(size*sizeof(node));
 	for (int i = 0 ; i < size ; i++) {

@@ -4,7 +4,7 @@ test-bin=test/graph-test
 
 main: src/graph.a
 
-src/graph.a: src/graph.o 
+src/graph.a: src/graph.o src/rand-graph.o
 	ar rcs $@ $^
 
 src/graph.o:
@@ -15,8 +15,8 @@ src/rand-graph.o:
 
 build-test: test/graph-test
 
-test/graph-test: lib/graph.a
-	$(CC) -o $@ $@.c lib/graph.a
+test/graph-test: src/graph.a
+	$(CC) -o $@ $@.c src/graph.a
 
 clean:
 	rm -f main
