@@ -2,35 +2,29 @@
 #include <stdio.h>
 #include "./graph.h"
 
-al_node* new_node() {
-  al_node* nd = (al_node*) malloc(sizeof(al_node));
+node* new_node() {
+  node* nd = (node*) malloc(sizeof(node));
   return nd;
 }
 
-void set_num_neighbors(al_node* nd, int size){
-  al_node** nds = (al_node**) malloc(size * sizeof(al_node*));
+void set_num_neighbors(node* nd, int size){
+  node** nds = (node**) malloc(size * sizeof(node*));
   nd->degree = size;
   nd->degree_in = 0;
   nd->v = nds;
 }
 
-void add_connection(al_node* nd1, int pos, al_node* nd2){
+void add_connection(node* nd1, int pos, node* nd2){
   nd1->v[pos] = nd2;
 }
 
-al_graph* new_graph(al_node** nds, int size){
-  al_graph* g = (al_graph*) malloc(sizeof(al_graph));
+graph* new_graph(node** nds, int size){
+  graph* g = (graph*) malloc(sizeof(graph));
   g->size = size;
   g->v = nds;
-}
-
-void tag_graph(graph* g){
-  int size  = g->size;
-  node** nds = g->v;
-  for(int i=0;i < size; i++){
-    node* nd = nds[i];
-    nd->tag = i;
-  }
+  for(int i=0; i < size;i++)
+    nds[i]->tag = i;
+  return g;
 }
 
 void print_graph(graph* g){
@@ -40,9 +34,9 @@ void print_graph(graph* g){
     node* nd = nds[i];
     node** v = nd->v;
     int degree = nd->degree;
-    printf("%d: ", nd->tag);
+    printf("%d: ", nd->tag);/*
     for(int j=0; j < degree; j++)
-      printf("%d, ", v[j]->tag);
+    printf("%d, ", v[j]->tag);*/
     printf("\n");
   }
 }

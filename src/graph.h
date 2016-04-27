@@ -1,27 +1,24 @@
 #ifndef GRAPH_H
 #define GRAPH_H
-#define node al_node
-#define graph al_graph
-#define subgraph al_subgraph
 
-typedef struct al_node {
+typedef struct node {
   int tag;
   int color;
   int degree;
   int degree_in;
-  struct al_node **v;
-} al_node;
+  struct node **v;
+} node;
 
-typedef struct al_graph {
+typedef struct graph {
   int size;
-  al_node **v;
-} al_graph;
+  node **v;
+} graph;
 
-typedef struct al_subgraph {
+typedef struct subgraph {
   int size_in;
   int boundary;
-  al_node **v;
-} al_subgraph;
+  node **v;
+} subgraph;
 
 
 node*   new_node();
