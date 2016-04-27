@@ -42,7 +42,7 @@ void print_graph(graph* g){
     int degree = nd->degree;
     printf("%d: ", nd->tag);
     for(int j=0; j < degree; j++)
-      printf("%d, ", v[j]);
+      printf("%d, ", v[j]->tag);
     printf("\n");
   }
 }
