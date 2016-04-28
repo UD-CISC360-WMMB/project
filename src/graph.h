@@ -5,6 +5,7 @@ typedef struct node {
   int tag;
   int color;
   int degree;
+  int boundary;
   struct node **v;
 } node;
 
