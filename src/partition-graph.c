@@ -1,6 +1,6 @@
 #include "./graph.h"
 
-subgraph** daft_partition(graph* g, int p_size){
+subgraph** graph_partition(graph* g, int p_size){
   int g_size = g->size;
   int pcounter=1;
   node** nds=new node*[g_size];
