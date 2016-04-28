@@ -14,7 +14,7 @@ typedef struct graph {
 } graph;
 
 typedef struct subgraph {
-  int size_in;
+  int size;
   int boundary;
   node **v;
 } subgraph;
