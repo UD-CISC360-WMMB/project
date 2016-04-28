@@ -15,6 +15,9 @@ src/rand-graph.o:
 
 build-test: test/graph-test
 
+test: build-test
+
+
 test/graph-test: src/graph.a
 	$(CC) -o $@ $@.c src/graph.a
 

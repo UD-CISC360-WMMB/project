@@ -2,15 +2,19 @@
 #include <stdio.h>
 #include "./graph.h"
 
+int node_count=0;
+
 node* new_node() {
   node* nd = (node*) malloc(sizeof(node));
+  nd->tag = node_count;
+  node_count++;
   return nd;
 }
+
 
 void set_num_neighbors(node* nd, int size){
   node** nds = (node**) malloc(size * sizeof(node*));
   nd->degree = size;
-  nd->degree_in = 0;
   nd->v = nds;
 }
 
@@ -22,8 +26,6 @@ graph* new_graph(node** nds, int size){
   graph* g = (graph*) malloc(sizeof(graph));
   g->size = size;
   g->v = nds;
-  for(int i=0; i < size;i++)
-    nds[i]->tag = i;
   return g;
 }
 
@@ -35,8 +37,9 @@ void print_graph(graph* g){
     node** v = nd->v;
     int degree = nd->degree;
     printf("%d: ", nd->tag);
-    for(int j=0; j < degree; j++){
-    printf("%d, ", v[j]->tag);}
+    for(int j=0; j < degree; j++)
+      printf("%d, ", v[j]->tag);
     printf("\n");
   }
 }
+
