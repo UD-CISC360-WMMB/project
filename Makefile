@@ -13,6 +13,9 @@ src/graph.o:
 src/rand-graph.o:
 	$(CC)  -c src/rand-graph.c -o $@
 
+src/partition-graph.o:
+	$(CC)  -c src/partition-graph.c -o $@
+
 lib/data.o:
 	$(CC)  -c lib/data.c -o $@
 
