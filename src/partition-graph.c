@@ -11,7 +11,8 @@ subgraph** graph_partition(graph* g, int p_size){
   int col=0;
   node* now=dequeue(Q);
   while(now!=null){
-      for(node* i:now->v){
+      for(int k=0;k<now->degree;k++){
+        node* i=now->v[k];
           if(i->color==0){
               if(pcounter%p_size==0){
                   col++;
