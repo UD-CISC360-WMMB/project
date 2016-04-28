@@ -1,4 +1,4 @@
-#include "../include/data.h"
+#include "./data.h"
 #include <stdlib.h>
 /* Definition of data structures */
 

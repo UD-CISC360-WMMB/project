@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "../include/hash.h"
+#include "./hash.h"
 #define FNV_PRIME 16777619
 #define FNV_OFFSET 2166136261
 
