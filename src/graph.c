@@ -28,7 +28,12 @@ graph* new_graph(node** nds, int size){
   g->v = nds;
   return g;
 }
-
+subgraph* new_subgraph(node** nds, int size){
+  subgraph* s = (subgraph*) malloc(sizeof(subgraph));
+  s->size = size;
+  s->v = nds;
+  return s;
+}
 void print_graph(graph* g){
   int size  = g->size;
   node** nds = g->v;
