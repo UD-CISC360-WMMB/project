@@ -1,5 +1,6 @@
 #include "./graph.h"
 #include "./data.h"
+#include <stdlib.h>
 
 subgraph** graph_partition(graph* g, int p_size){
   int g_size = g->size;
@@ -10,7 +11,7 @@ subgraph** graph_partition(graph* g, int p_size){
   enqueue(g->v[0],Q);
   int col=0;
   node* now=dequeue(Q);
-  while(now!=null){
+  while(now!=NULL){
       for(int k=0;k<now->degree;k++){
         node* i=now->v[k];
           if(i->color==0){
@@ -20,7 +21,7 @@ subgraph** graph_partition(graph* g, int p_size){
               nds[pcounter]=i;
               i->color=col;
               pcounter++;
-              enqueue(i,Q)
+              enqueue(i,Q);
           }
       }
       now=dequeue(Q);

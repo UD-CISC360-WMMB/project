@@ -1,6 +1,6 @@
 #include "graph.h"
 
-void	color(subgraph* sg) {
+void	color_subgraph(subgraph* sg) {
 	int banned[sg->size];
 	for (int i = 0 ; i < sg->size ; i++ ) {
 		banned[i] = 0 ;
