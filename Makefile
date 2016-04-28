@@ -1,6 +1,6 @@
 CC=gcc
 
-test-bin=test/graph-test
+test-bin=test/graph-test test/data_test test/hash_test
 
 main: src/project.a
 
