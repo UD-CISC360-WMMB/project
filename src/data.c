@@ -45,7 +45,7 @@ void enqueue(void *data,queue *q){
   if(q->size <= 0){
     q->first = lst;
     q->last = lst;
-  } else{
+  } else {
     q->last->next = lst;
     q->last = lst;
   }
@@ -54,9 +54,9 @@ void enqueue(void *data,queue *q){
 
 void *dequeue(queue *q){
   void *data;
-  if(q->size <= 0)
+  if(q->size <= 0){
     data = NULL;
-  else{
+  } else {
     data = q->first->data;
     q->first = q->first->next;
     q->size = q->size - 1;

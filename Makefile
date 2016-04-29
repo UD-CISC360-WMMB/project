@@ -1,6 +1,6 @@
 CC=gcc
 
-test-bin=test/graph-test test/data_test test/hash_test
+test-bin=test/graph-test test/data_test
 
 main: src/project.a
 
@@ -17,7 +17,7 @@ src/partition-graph.o:
 	$(CC)  -c src/partition-graph.c -o $@
 
 src/color-graph.o:
-	$(cc) -c src/color-graph.c -o $@
+	$(CC) -c src/color-graph.c -o $@
 
 lib/data.o:
 	$(CC)  -c lib/data.c -o $@
@@ -25,10 +25,11 @@ lib/data.o:
 lib/hash.o:
 	$(CC)  -c lib/hash.c -o $@
 
-build-test: test/graph-test test/data_test test/hash_test
+test: test/graph-test test/data_test
 
-test: build-test
-
+run-test: test
+	test/data_test
+	test/graph-test
 
 test/graph-test: src/project.a
 	$(CC) -o $@ $@.c src/project.a

@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "./hash.h"
+#include "./data.h"
 #define FNV_PRIME 16777619
 #define FNV_OFFSET 2166136261
 
@@ -74,9 +74,9 @@ entry* entry_get(entry* e, char* key){
     entry* cur = e->next;
     while(cur != NULL){
       if(str_eq(key, cur->key)){
-	prev->next = cur->next;
-	cur->next = e;
-	return cur;
+        prev->next = cur->next;
+        cur->next = e;
+        return cur;
       }
       prev = cur;
       cur = cur->next;
