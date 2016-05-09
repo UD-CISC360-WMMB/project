@@ -40,7 +40,7 @@ subgraph** partition_graph(graph* g, int p_size){
       if(Q->size==0&&graphindexer<g_size){
          enqueue(g->v[graphindexer],Q);
          more=1;
-         if(g->v[graphindexer]->degree==0){
+         if(g->v[graphindexer]->color==0){
               nds[pcounter]=g->v[graphindexer];
               nds[pcounter]->color=col;
               pcounter++;
