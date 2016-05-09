@@ -6,22 +6,25 @@
 subgraph** partition_graph(graph* g, int p_size){
   int g_size = g->size;
   int pcounter=1;
+  int graphindexer=1;
   int more=1;
   node** nds=malloc(g_size*sizeof(node*));
   nds[0]=g->v[0];
+  nds[0]->color=1;
   queue* Q=new_queue();
   enqueue(g->v[0],Q);
-  int col=0;
+  int col=1;
   node* now;
-  printf("%s\n","Test1");
+  
   while(more==1){
     more=0;
-     printf("%s\n","Test1a");
+     
      now=dequeue(Q);
-     printf("%s\n","Test1b");
+     
       for(int k=0;k<now->degree;k++){
-         printf("%s\n","Test1aa");
-        node* i=now->v[k];
+         
+         node* i=now->v[k];
+         printf("%d %s %d\n",i->tag,"Node: ",i->color);
           if(i->color==0){
               if(pcounter%p_size==0){
                   col++;
@@ -34,8 +37,20 @@ subgraph** partition_graph(graph* g, int p_size){
           }
            printf("%s\n","Test1ab");
       }
-      
+      if(Q->size==0&&graphindexer<g_size){
+         enqueue(g->v[graphindexer],Q);
+         more=1;
+         if(g->v[graphindexer]->color==0){
+              nds[pcounter]=g->v[graphindexer];
+              nds[pcounter]->color=col;
+              pcounter++;
+         }
+         graphindexer++;
+      }
        printf("%s\n","Test1c");
+      if(Q->size!=0){
+        more=1;
+      }
   }
   printf("%s\n","Test2");
   subgraph** sub=malloc(g_size/p_size*sizeof(subgraph));

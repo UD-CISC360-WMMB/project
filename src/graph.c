@@ -48,3 +48,16 @@ void print_graph(graph* g){
   }
 }
 
+void print_subgraph(subgraph* sg){
+  int size  = sg->size;
+  node** nds = sg->v;
+  for(int i=0; i < size; i++){
+    node* nd = nds[i];
+    node** v = nd->v;
+    int degree = nd->degree;
+    printf("%d: ", nd->tag);
+    for(int j=0; j < degree; j++)
+      printf("%d, ", v[j]->tag);
+    printf("\n");
+  }
+}
