@@ -15,16 +15,16 @@ subgraph** partition_graph(graph* g, int p_size){
   enqueue(g->v[0],Q);
   int col=1;
   node* now;
-  printf("%s\n","Test1");
+  
   while(more==1){
     more=0;
-     printf("%s\n","Test1a");
+     
      now=dequeue(Q);
-     printf("%s\n","Test1b");
+     
       for(int k=0;k<now->degree;k++){
-         printf("%s\n","Test1aa");
-         node* i=now->v[k];
          
+         node* i=now->v[k];
+         printf("%d %s %d\n",i->tag,"Node: ",i->color);
           if(i->color==0){
               if(pcounter%p_size==0){
                   col++;
