@@ -12,7 +12,7 @@ subgraph** partition_graph(graph* g, int p_size){
   nds[0]=g->v[0];
   queue* Q=new_queue();
   enqueue(g->v[0],Q);
-  int col=0;
+  int col=1;
   node* now;
   printf("%s\n","Test1");
   while(more==1){
