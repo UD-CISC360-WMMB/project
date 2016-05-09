@@ -6,14 +6,16 @@
 subgraph** partition_graph(graph* g, int p_size){
   int g_size = g->size;
   int pcounter=1;
+  int more=1;
   node** nds=malloc(g_size*sizeof(node*));
   nds[0]=g->v[0];
   queue* Q=new_queue();
   enqueue(g->v[0],Q);
   int col=0;
-  node* now=g->v[0];
+  node* now;
   printf("%s\n","Test1");
-  while(now!=NULL){
+  while(more==1){
+    more=0;
      printf("%s\n","Test1a");
      now=dequeue(Q);
      printf("%s\n","Test1b");
@@ -28,6 +30,7 @@ subgraph** partition_graph(graph* g, int p_size){
               i->color=col;
               pcounter++;
               enqueue(i,Q);
+              more=1;
           }
            printf("%s\n","Test1ab");
       }
