@@ -11,7 +11,7 @@ subgraph** partition_graph(graph* g, int p_size){
   queue* Q=new_queue();
   enqueue(g->v[0],Q);
   int col=0;
-  node* now;
+  node* now=g->v[0];
   printf("%s\n","Test1");
   while(now!=NULL){
      printf("%s\n","Test1a");
