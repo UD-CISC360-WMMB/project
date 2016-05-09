@@ -48,6 +48,9 @@ subgraph** partition_graph(graph* g, int p_size){
          graphindexer++;
       }
        printf("%s\n","Test1c");
+      if(Q->size!=0){
+        more=1;
+      }
   }
   printf("%s\n","Test2");
   subgraph** sub=malloc(g_size/p_size*sizeof(subgraph));
