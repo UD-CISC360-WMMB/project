@@ -1,5 +1,6 @@
 #include "./graph.h"
 #include "./data.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 subgraph** partition_graph(graph* g, int p_size){
