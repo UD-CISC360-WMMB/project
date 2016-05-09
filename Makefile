@@ -4,7 +4,7 @@ test-bin=test/graph-test test/data_test
 
 main: src/project.a
 
-src/project.a: src/graph.o src/rand-graph.o src/partition-graph.o src/data.o src/hash.o
+src/project.a: src/graph.o src/rand-graph.o src/partition-graph.o src/color-graph.o src/data.o src/hash.o
 	ar rcs $@ $^
 
 src/graph.o:
