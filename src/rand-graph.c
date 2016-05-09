@@ -12,10 +12,13 @@ int** randMat( int size ) {
 		adjMat[i]	=	values + i*size;
 	}
 	for (int i = 0 ; i < size; i++ ) {
-		for (int j = i ; j < size ; j++ ) {
-			adjMat[i][j] = rand() % 2;
-			adjMat[j][i] = adjMat[i][j];
+		int i = (int) (size * ((double) rand() / (RAND_MAX +1.0)));
+		int j = (int) (size * ((double) rand() / (RAND_MAX +1.0)));
+		while (i == j) {
+			j = (int) (size * ((double) rand() / (RAND_MAX +1.0)));
 		}
+		adjMat[i][j] = 1;
+		adjMat[j][i] = 1;
 	}
 	return adjMat;
 }
