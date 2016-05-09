@@ -2,7 +2,7 @@
 #include "./data.h"
 #include <stdlib.h>
 
-subgraph** graph_partition(graph* g, int p_size){
+subgraph** partition_graph(graph* g, int p_size){
   int g_size = g->size;
   int pcounter=1;
   node** nds=malloc(g_size*sizeof(node*));
