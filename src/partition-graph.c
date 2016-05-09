@@ -10,6 +10,7 @@ subgraph** partition_graph(graph* g, int p_size){
   int more=1;
   node** nds=malloc(g_size*sizeof(node*));
   nds[0]=g->v[0];
+  nds[0]->color=1;
   queue* Q=new_queue();
   enqueue(g->v[0],Q);
   int col=1;
