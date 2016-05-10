@@ -56,7 +56,8 @@ subgraph** partition_graph(graph* g, int p_size){
       int step=0;
       for(int j=i;j<i+p_size;j++){
           nsg[step]=nds[j];
-          step++;
+          nds[j]->color = -1;
+	  step++;
       }
       sub[substep]=new_subgraph(nsg,p_size);
       substep++;

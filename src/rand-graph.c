@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "./graph.h"
 
-int** randMat( int size ) {
+int** randMat( int size, int connections ) {
 	int* values		= calloc(size*size, sizeof(int));
 	int** adjMat	= malloc(size*sizeof(int*));
 	srand(time(NULL));
@@ -11,7 +11,7 @@ int** randMat( int size ) {
 	for (int i=0; i < size ; i++) {
 		adjMat[i]	=	values + i*size;
 	}
-	for (int i = 0 ; i < size; i++ ) {
+	for (int i = 0 ; i < connections; i++ ) {
 		int i = (int) (size * ((double) rand() / (RAND_MAX +1.0)));
 		int j = (int) (size * ((double) rand() / (RAND_MAX +1.0)));
 		while (i == j) {
@@ -23,8 +23,8 @@ int** randMat( int size ) {
 	return adjMat;
 }
 
-graph* rand_graph(int size)  {
-	int ** randmat = randMat(size);
+graph* rand_graph(int size, int connections)  {
+	int ** randmat = randMat(size, connections);
 	node** nodes = malloc(size*sizeof(node));
 	for (int i = 0 ; i < size ; i++) {
 		nodes[i] = new_node();
