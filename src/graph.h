@@ -33,5 +33,7 @@ void print_subgraph(subgraph* sg);
 
 subgraph** partition_graph(graph* g, int p_size);
 void color_subgraph(subgraph* sg);
+void color_boundary(graph* g);
+void sequential_color(graph* g);
 
 #endif
