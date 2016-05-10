@@ -55,7 +55,7 @@ void print_subgraph(subgraph* sg){
     node* nd = nds[i];
     node** v = nd->v;
     int degree = nd->degree;
-    printf("%d: ", nd->tag);
+    printf("%d (color: %d): ", nd->tag, nd->color);
     for(int j=0; j < degree; j++)
       printf("%d, ", v[j]->tag);
     printf("\n");
