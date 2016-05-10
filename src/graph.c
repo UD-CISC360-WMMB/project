@@ -61,3 +61,22 @@ void print_subgraph(subgraph* sg){
     printf("\n");
   }
 }
+
+void validate_color(graph* g) {
+	int valid = 1;
+	for (int i = 0 ; i < g->size ; i++ ) {
+		node* currNode = g->v[i];
+		int currColor = currNode->color;
+		int boundary = currNode->degree;
+		for (int j = 0 ; j < boundary ; j++ ) {
+			int colorCheck = currNode->v[j]->color;
+			if (colorCheck == currColor) {
+				valid = 0 ;
+				printf("Validation failed at node %d\n", currNode->tag);
+			}
+		}
+	}
+	if (valid == 1) {
+		printf("%s", "Validation successful\n");
+	}
+}
