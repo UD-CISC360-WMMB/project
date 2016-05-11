@@ -17,7 +17,8 @@ void graph_eval(int size){
   max = 0;
 
   //file = fopen("evals.txt", "r");
-  g = rand_graph(size);
+  g = rand_graph(size, size);
+
   // need to cilk and stuff
   double subgraph_size = g->size; // divide by threads
   int s = (int) subgraph_size;
