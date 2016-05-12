@@ -1,0 +1,16 @@
+NOTES:
+all cilk calls are in main functions
+cilk_spawn is called on a function or variable, parallelizes the call
+cilk_sync will sync all cilk calls beforehand, to prevent processes from running before or after due to parallelization
+ex: car-builder
+cilk_for will parallelize a for loop, similar to cilk_spawn but for a loop
+cilk_for() only works with a var declared inside the loop, so
+cilk_for(int i = 0; i < n; i++) works,
+but int i; cilk_for(i = 0; i < n; i++) doesn't work
+you can determine the grain size to split the processing through
+#pragma grainsize = gs
+so cilk_for(int i = 0; i < n/gs; i++) will split the loop by grainsize
+to lock and unlock a for loop to prevent race conditions, we use
+pthread_mutex_t m; // to initialize a lock
+pthread_mutex_lock(&m) to lock the loop
+pthread_mutex_unlock(&m) to unlock the loop
