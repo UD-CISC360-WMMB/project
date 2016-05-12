@@ -5,7 +5,7 @@ typedef struct node {
   int tag;
   int color;
   int degree;
-  int boundary;
+  int connects_parts;
   struct node **v;
 } node;
 
@@ -20,6 +20,11 @@ typedef struct subgraph {
   node **v;
 } subgraph;
 
+typedef struct partition{
+  subgraph** subs;
+  int num_subs;
+} partition;
+
 
 node*   new_node();
 void    set_num_neighbors(node* nd, int i);
@@ -30,9 +35,11 @@ subgraph* new_subgraph(node** nds, int size);
 graph*  rand_graph(int size, int connection);
 void    print_graph(graph* g);
 void print_subgraph(subgraph* sg);
+void print_partition(partition p);
+
 void validate_color(graph* g);
 
-subgraph** partition_graph(graph* g, int p_size);
+partition partition_graph(graph* g, int p_size);
 void color_subgraph(subgraph* sg);
 void color_boundary(graph* g);
 void sequential_color(graph* g);

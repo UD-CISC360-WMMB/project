@@ -41,10 +41,12 @@ void print_graph(graph* g){
     node* nd = nds[i];
     node** v = nd->v;
     int degree = nd->degree;
-    printf("%d: ", nd->tag);
-    for(int j=0; j < degree; j++)
-      printf("%d, ", v[j]->tag);
-    printf("\n");
+    if(degree){
+      printf("%d: ", nd->tag);
+      for(int j=0; j < degree; j++)
+        printf("%d, ", v[j]->tag);
+      printf("\n");
+    }
   }
 }
 
@@ -55,10 +57,20 @@ void print_subgraph(subgraph* sg){
     node* nd = nds[i];
     node** v = nd->v;
     int degree = nd->degree;
-    printf("%d (color: %d): ", nd->tag, nd->color);
-    for(int j=0; j < degree; j++)
-      printf("%d, ", v[j]->tag);
-    printf("\n");
+    if(degree){
+      printf("  %d (color: %d): ", nd->tag, nd->color);
+      for(int j=0; j < degree; j++)
+        printf("%d, ", v[j]->tag);
+      printf("\n");
+    }
+  }
+}
+
+void print_partition(partition p){
+  for(int i=0; i < p.num_subs;i++){
+    printf("Subgraph %d:\n",i);
+    subgraph* sg = p.subs[i];
+    print_subgraph(sg);
   }
 }
 
