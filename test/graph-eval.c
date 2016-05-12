@@ -1,49 +1,55 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <string.h>
 #include <cilk/cilk.h>
 #include <cilk/cilk_api.h>
+#include <pthread.h>
+#include <math.h>
 #include "../src/graph.h"
 
-int min; // minimum size
-int max; // maximum size
-graph* g; // graph
-subgraph** sg; // graph partitions
-// FILE* file; // stores performance values from min to max
+int main(int argc, char *argv[]){
+	graph* g;
+	subgraph ** sgs;
+  partition p;
+	int size = atoi(argv[1]);
+	int connections = atoi(argv[2]);
 
+	g = rand_graph(size, connections);
+	print_graph(g);
+	// appropriately size partitions by workers and proper division
+	int p_size = g->size / __cilkrts_get_nworkers();
+	int x_size = p_size;
+	int remainder = g->size % p_size;
+	while(remainder > 0){
+		x_size--;
+		remainder = g->size % x_size;
+	}
 
-void graph_eval(int size){
-  min = 0;
-  max = 0;
+	printf("g_size, %d, x_size: %d, remainder %d\n", g->size, x_size, remainder);
+	p = partition_graph(g, x_size);
 
-  //file = fopen("evals.txt", "r");
-  g = rand_graph(size, size);
-
-  // need to cilk and stuff
-  double subgraph_size = g->size; // divide by threads
-  int s = (int) subgraph_size;
-  sg = partition_graph(g, s);
-
-  // time this and thread and stuff
-  clock_t start = clock();
-  for(int j = 0; j < s; j++){
-    color_subgraph(sg[j]);
+	int subs = p.num_subs;
+	int workers = __cilkrts_get_nworkers();
+	double subsD = (double) subs;
+	double workersD = (double) workers;
+	double gsD =  ceil(subsD / workersD);
+	int gs = (int) gsD;
+	#pragma grainsize = gs;
+	printf("subs: %d, workers: %d, subs/gs: %d\n", subs, workers, gs);
+	// parallel coloring through cilk
+  cilk_for(int i = 0; i < gs; i++){
+		for(int j = i*subs; j < i*subs + gs; j++){
+			color_subgraph(p.subs[i]);
+		}
+	}
+	 //validate_color(g);
+	//color_boundary(g);
+	//sequential_color(g);
+	//validate_color(g);
+  for(int s = 0; s < p.num_subs; s++){
+	   print_subgraph(p.subs[s]);
   }
-  clock_t end = clock();
-
-  // write to file for data graphing
-  double duration = (double)(end - start) / CLOCKS_PER_SEC;
-  printf("Hi. %.3f",duration);
-  //fputs(string, file);
-  //fputs("\n", file);
-  // display number of colors, go through graph, find max color
-
-
-
-  //fclose(file);
-}
-
-
-int main(){
-  graph_eval(10);
+  print_partition(p);
+  	//print_subgraph(sgs[1]);
+	return 0;
 }
