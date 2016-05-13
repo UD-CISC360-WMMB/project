@@ -6,6 +6,7 @@ typedef struct node {
   int color;
   int degree;
   int connects_parts;
+  int boundry;
   struct node **v;
 } node;
 
