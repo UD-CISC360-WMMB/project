@@ -5,23 +5,24 @@
 
 int main(int argc, char *argv[]){
 	graph* g;
-	subgraph ** sgs;
-  partition p;
+  p_graph pg;
 	int size = atoi(argv[1]);
 	int connections = atoi(argv[2]);
-
+  
 	g = rand_graph(size, connections);
+  
 	print_graph(g);
-	p = partition_graph(g,5);
-//	validate_color(g);
-  for(int i=0;i<p.num_subs;i++)
-    color_subgraph(p.subs[i]);
-//	validate_color(g);
-//	color_boundary(g);
-//	sequential_color(g);
-//	validate_color(g);
-//	print_subgraph(p.subs[0]);
-  print_partition(p);
-  //	print_subgraph(sgs[1]);
+  //pg = block_partition(g,5);
+  pg = dfs_partition(g,5);
+  
+  for(int i=0;i<pg.num_subs;i++)
+    color_subgraph(pg,i);
+  color_boundary(g);
+  
+  print_subgraphs(pg);
+
+  sequential_color(g);
+  validate_color(g);
+
 	return 0;
 }

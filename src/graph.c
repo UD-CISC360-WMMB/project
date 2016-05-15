@@ -28,12 +28,7 @@ graph* new_graph(node** nds, int size){
   g->v = nds;
   return g;
 }
-subgraph* new_subgraph(node** nds, int size){
-  subgraph* s = (subgraph*) malloc(sizeof(subgraph));
-  s->size = size;
-  s->v = nds;
-  return s;
-}
+
 void print_graph(graph* g){
   int size  = g->size;
   node** nds = g->v;
@@ -43,34 +38,32 @@ void print_graph(graph* g){
     int degree = nd->degree;
     if(degree){
       printf("%d: ", nd->tag);
-      for(int j=0; j < degree; j++)
-        printf("%d, ", v[j]->tag);
+      if(0 < degree)
+        printf("%d", v[0]->tag);
+      for(int j=1; j < degree; j++)
+        printf(", %d", v[j]->tag);
       printf("\n");
     }
   }
 }
 
-void print_subgraph(subgraph* sg){
-  int size  = sg->size;
-  node** nds = sg->v;
-  for(int i=0; i < size; i++){
-    node* nd = nds[i];
-    node** v = nd->v;
-    int degree = nd->degree;
-    if(degree){
-      printf("  %d (color: %d): ", nd->tag, nd->color);
-      for(int j=0; j < degree; j++)
-        printf("%d, ", v[j]->tag);
-      printf("\n");
+void print_subgraphs(p_graph pg){
+  for(int i=0; i < pg.num_subs;i++){
+    printf("Subgraph %d:\n", i);
+    for(int j=0; j < pg.sub_size; j++){
+      node* nd = pg.subs[i][j];
+      node** v = nd->v;
+      int degree = nd->degree;
+      if(degree){
+        printf("  %d [color: %d, subgraph: %d, out degree: %d]: ",
+               nd->tag, nd->color, nd->subgraph, nd->degree_out);
+        if(0 < degree)
+          printf("%d", v[0]->tag);
+        for(int j=1; j < degree; j++)
+          printf(", %d", v[j]->tag);
+        printf("\n");
+      }
     }
-  }
-}
-
-void print_partition(partition p){
-  for(int i=0; i < p.num_subs;i++){
-    printf("Subgraph %d:\n",i);
-    subgraph* sg = p.subs[i];
-    print_subgraph(sg);
   }
 }
 

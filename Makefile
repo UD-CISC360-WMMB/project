@@ -1,10 +1,10 @@
 CC=gcc
 
-test-bin=test/graph-test test/data_test
+test-bin=test/graph-test test/data-test test/graph-eval
 
 main: src/project.a
 
-src/project.a: src/graph.o src/rand-graph.o src/partition-graph.o src/color-graph.o src/color-boundary.o src/sequential-color.o src/data.o src/hash.o
+src/project.a: src/graph.o src/rand-graph.o src/partition-graph.o src/color-graph.o src/data.o
 	ar rcs $@ $^
 
 src/graph.o:
@@ -19,32 +19,23 @@ src/partition-graph.o:
 src/color-graph.o:
 	$(CC) -c src/color-graph.c -o $@
 
-src/color-boundary.o:
-	$(CC) -c src/color-boundary.c -o$@
-
-src/sequential-color.o:
-	$(CC) -c src/sequential-color.c -o$@
-
 lib/data.o:
 	$(CC)  -c lib/data.c -o $@
 
-lib/hash.o:
-	$(CC)  -c lib/hash.c -o $@
-
-test: test/graph-test test/data_test
+test: test/graph-test test/data-test
 
 run-test: test
-	test/data_test
-	test/graph-test
+	test/graph-test 20 20
+#	test/data-test
 
 test/graph-test: src/project.a
 	$(CC) -o $@ $@.c src/project.a
 
-test/data_test: src/project.a
+test/data-test: src/project.a
 	$(CC) -o $@ $@.c src/project.a
 
-test/hash_test: src/project.a
-	$(CC) -o $@ $@.c src/project.a
+clean-test:
+	rm -f $(test-bin)
 
 clean:
 	rm -f main
