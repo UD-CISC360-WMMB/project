@@ -57,10 +57,10 @@ p_graph dfs_partition(graph* g, int p_size){
   int more=1;
   node** nds=malloc(g_size*sizeof(node*));
   nds[0]=g->v[0];
-  nds[0]->color=1;
+  nds[0]->subgraph=0;
   queue* Q=new_queue();
   enqueue(g->v[0],Q);
-  int col=1;
+  int sub_index=0;
   node* now;
   
   while(more==1){
@@ -71,11 +71,13 @@ p_graph dfs_partition(graph* g, int p_size){
       for(int k=0;k<now->degree;k++){
          
          node* i=now->v[k];
-          if(i->color==0){
-              col += !(pcounter%p_size);
+          if(i->subgraph==-1){
               nds[pcounter]=i;
-              i->color=col;
+              i->subgraph=sub_index;
               pcounter++;
+              if(pcounter%p_size==0){
+                sub_index++;
+              }
               enqueue(i,Q);
               more=1;
           }
@@ -83,10 +85,13 @@ p_graph dfs_partition(graph* g, int p_size){
       if(Q->size==0&&graphindexer<g_size){
          enqueue(g->v[graphindexer],Q);
          more=1;
-         if(g->v[graphindexer]->color==0){
+         if(g->v[graphindexer]->subgraph==-1){
               nds[pcounter]=g->v[graphindexer];
-              nds[pcounter]->color=col;
+              nds[pcounter]->subgraph=sub_index;
               pcounter++;
+              if(pcounter%p_size==0){
+                sub_index++;
+              }
          }
          graphindexer++;
       }
@@ -101,8 +106,6 @@ p_graph dfs_partition(graph* g, int p_size){
       int step=0;
       for(int j=i;j<i+p_size;j++){
           nsg[step]=nds[j];
-          nds[j]->color = -1;
-          nds[j]->subgraph = substep;
           step++;
       }
       subs[substep] = nsg;
