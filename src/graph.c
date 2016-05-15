@@ -8,6 +8,7 @@ node* new_node() {
   node* nd = (node*) malloc(sizeof(node));
   nd->tag = node_count;
   node_count++;
+  nd.subgraph=-1;
   return nd;
 }
 
