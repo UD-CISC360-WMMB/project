@@ -17,6 +17,7 @@ typedef struct queue{
   list *last;
 } queue;
 
+
 list  *new_list(void*,list*);
 void  dest_list(list *);
 stack *new_stack();

@@ -3,22 +3,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void label_boundary_nodes(p_graph pg){
-  int sub_size = pg.sub_size, num_subs = pg.num_subs;
-  node*** subs = pg.subs;
+
+
+void label_boundary_nodes(p_graph *pg){
+  int sub_size = pg->sub_size, num_subs = pg->num_subs;
+  int num_bnds=0;
+  node*** subs = pg->subs;
   for(int i=0; i < num_subs; i++){
     for(int j=0;j < sub_size; j++){
       node* nd = subs[i][j];
       node** v = nd->v;
       int degree = nd->degree;
       for(int k=0; k < degree; k++){
-        if(v[k]->subgraph != i)
-          v[k]->degree_out++;
+        if(v[k]->subgraph != i){
+          if(nd->degree_out == 0)
+            num_bnds++;
+          nd->degree_out++;
+        }
       }
-
     }
   }
+  pg->boundary_table->size = num_bnds;
 }
+
+
+
+void collect_boundary_nodes(p_graph *pg){
+  int sub_size   = pg->sub_size, num_subs = pg->num_subs;
+  node*** subs   = pg->subs;
+
+  boundary_table *bt = pg->boundary_table;
+  int num_bnds = bt->size;
+  
+  node** bnds    = malloc(num_bnds*sizeof(node*));
+  int* conflicts = malloc(num_bnds*sizeof(int));
+  
+  int b=0;
+  for(int i=0; i < num_subs; i++){
+    for(int j=0; j < sub_size; j++){
+      node* nd = subs[i][j];
+      if(nd->degree_out != 0){
+        conflicts[b] = 1;
+        bnds[b++] = nd;
+      }
+    }
+  }
+  bt->nodes = bnds;
+  bt->conflicts = conflicts;
+}
+
 
 p_graph block_partition(graph* g, int sub_size){
   int g_size = g->size;
@@ -42,8 +75,7 @@ p_graph block_partition(graph* g, int sub_size){
   pg.sub_size = sub_size;
   pg.num_subs = num_subs;
   pg.subs = subs;
-
-  label_boundary_nodes(pg);
+  pg.boundary_table = malloc(sizeof(boundary_table));
   return pg;
 }
 
@@ -108,11 +140,11 @@ p_graph dfs_partition(graph* g, int p_size){
       subs[substep] = nsg;
       substep++;
   }
+
   p_graph pg;
   pg.sub_size = p_size;
   pg.num_subs = num_p;
   pg.subs = subs;
-  label_boundary_nodes(pg);
+  pg.boundary_table = malloc(sizeof(boundary_table));
   return pg;
 }
-
