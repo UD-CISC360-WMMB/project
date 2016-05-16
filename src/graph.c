@@ -9,6 +9,7 @@ node* new_node() {
   nd->tag = node_count;
   node_count++;
   nd->subgraph=-1;
+  nd->color   =-1;
   return nd;
 }
 
@@ -38,7 +39,7 @@ void print_graph(graph* g){
     node** v = nd->v;
     int degree = nd->degree;
     if(degree){
-      printf("%d: ", nd->tag);
+      printf("%d [color: %d]: ", nd->tag,nd->color);
       if(0 < degree)
         printf("%d", v[0]->tag);
       for(int j=1; j < degree; j++)

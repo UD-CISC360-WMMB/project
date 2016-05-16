@@ -81,7 +81,7 @@ p_graph block_partition(graph* g, int sub_size){
 
 
 
-p_graph dfs_partition(graph* g, int p_size){
+p_graph bfs_partition(graph* g, int p_size){
   int g_size = g->size;
   int num_p = g_size/p_size + (g_size%p_size != 0);
   int pcounter=1;

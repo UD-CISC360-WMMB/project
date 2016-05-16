@@ -47,9 +47,11 @@ void label_boundary_nodes(p_graph *pg);
 void collect_boundary_nodes(p_graph *pg);
 
 p_graph block_partition(graph* g, int sub_size);
-p_graph dfs_partition(graph* g, int p_size);
+p_graph bfs_partition(graph* g, int p_size);
 
 void color_subgraph(p_graph pg, int index);
+void subgraph_color(node** sub, int size);
+
 void color_boundary(graph* g);
 
 
