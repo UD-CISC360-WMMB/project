@@ -55,7 +55,7 @@ void subgraph_color(node** sub, int size);
 void color_boundary(graph* g);
 
 
-void detect_all_conflicts(boundary_table *bt);
+int detect_all_conflicts(boundary_table *bt);
 int count_conflicts(boundary_table *bt);
 void sequential_color(graph* g);
 

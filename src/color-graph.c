@@ -1,7 +1,9 @@
 #include "graph.h"
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
-/*
+
 int min_color(node* nd){
   int degree = nd->degree;
   int color=0;
@@ -18,27 +20,8 @@ int min_color(node* nd){
   }
 }
 
-int min_color_in_sub(node* nd,int subgraph){
-  int degree = nd->degree;
-  int color=0;
-  while(1){
-    int found = 1;
-    for(int i=0;i < degree; i++){
-      node* neighbor = nd->v[i];
-      if(neighbor->subgraph == subgraph && neighbor->color == color){
-        found = 0;
-        color++;
-        break;
-      }
-    }
-    if(found)
-      return color;
-  }
-}
 
-
-
-void sequential_color(graph* g){
+void sequential_resolve(graph* g){
   int size = g->size;
   node** v = g->v;
   for(int i=0; i < size; i++){
@@ -47,20 +30,6 @@ void sequential_color(graph* g){
       nd->color = min_color(nd);
   }
 }
-
-
-
-void subgraph_color(node** sub, int size){
-  int subgraph = sub[0]->subgraph;
-  for(int i=0; i < size; i++){
-    node* nd = sub[i];
-    if(nd->color < 0)
-      nd->color = min_color_in_sub(nd,subgraph);
-  }
-}
-*/
-
-
 
 
 void sequential_color(graph* g) {
@@ -126,7 +95,7 @@ int detect_conflicts(node* nd){
   int color = nd->color, conflict = 0,degree = nd->degree;
   int tag = nd->tag;
   for(int i=0;i < degree;i++){
-    if(nd->v[i]->color == color && nd->tag <= nd->v[i]->tag){
+    if(nd->v[i]->color == color && (rand()%2) ){
       nd->color = -1;
       conflict = 1;
     }
@@ -134,23 +103,20 @@ int detect_conflicts(node* nd){
   return conflict;
 }
 
-void detect_all_conflicts(boundary_table *bt){
+int detect_all_conflicts(boundary_table *bt){
   int size = bt->size;
   node** bnds = bt->nodes;
   int* conflicts = bt->conflicts;
+  int count=0;
+  srand(time(NULL));
   
   for(int i=0; i < size;i++){
-    if(conflicts[i])
-      conflicts[i] = detect_conflicts(bnds[i]);
+    if(conflicts[i]){
+      int dc = detect_conflicts(bnds[i]);
+      count += dc;
+      conflicts[i] = dc;
+    }
   }
-}
-
-int count_conflicts(boundary_table *bt){
-  int size = bt->size, count = 0;
-  int* conflicts = bt->conflicts;
-  for(int i=0; i < size;i++)
-    if(conflicts[i])
-      count++;
   return count;
 }
 
