@@ -58,5 +58,5 @@ void color_boundary(graph* g);
 int detect_all_conflicts(boundary_table *bt);
 int count_conflicts(boundary_table *bt);
 void sequential_color(graph* g);
-
+int count_colors(graph* g);
 #endif

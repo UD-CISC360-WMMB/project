@@ -20,6 +20,17 @@ int min_color(node* nd){
   }
 }
 
+/*
+int count_colors(p_graph* g){
+  int count = 0;
+  for(int i = 0; i < g->size; i++){
+    node* currNode = g->v[i];
+    if(currColor > -1){
+      count++;
+    }
+  }
+  return count;
+}*/
 
 void sequential_resolve(graph* g){
   int size = g->size;
@@ -109,7 +120,7 @@ int detect_all_conflicts(boundary_table *bt){
   int* conflicts = bt->conflicts;
   int count=0;
   srand(time(NULL));
-  
+
   for(int i=0; i < size;i++){
     if(conflicts[i]){
       int dc = detect_conflicts(bnds[i]);
